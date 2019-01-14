@@ -10,10 +10,12 @@ package ej04b_Biblioteca;
  * @author FMR
  */
 public class Ejemplar {
+    int numEjemplar;
     boolean prestado;       // true = prestado / false= disponible
     String datosPrestamo;   // datos del socio, etcétera
     
-    Ejemplar(){
+    Ejemplar(int nEjemplar){
+        this.numEjemplar=nEjemplar;
         prestado=false;
         datosPrestamo="Recien creado";
     }
@@ -33,11 +35,10 @@ public class Ejemplar {
         prestado=false;
         datosPrestamo="devuelto"+datosPrestamo;
     }
-    
-  
+   
     @Override
     public String toString(){
-        String r=this.prestado+"*"+this.datosPrestamo;
+        String r=this.numEjemplar+"*"+this.prestado+"*"+this.datosPrestamo;
         return r;
     }
 }

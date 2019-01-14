@@ -15,6 +15,7 @@ public class Libro {
     String autor;
     int nEjs;
     Ejemplar[] e;
+    int proximoEjemplar=1;
    
     Libro(String isb, String tit, String aut,int nEj){
         this.isbn=isb;
@@ -23,7 +24,8 @@ public class Libro {
         this.nEjs=nEj;
         this.e = new Ejemplar[nEj];
         for(int i=0; i<e.length;i++){
-             this.e[i]=new Ejemplar();
+             this.e[i]=new Ejemplar(proximoEjemplar);
+             proximoEjemplar++;
         }
        
     }
@@ -47,7 +49,7 @@ public class Libro {
         int i=0;
         while( i<e.length && r==null  ){
             if(e[i]!=null && e[i].disponible()){
-                e[i].Prestar(datosPres);
+                e[i].Prestar("Ejemplar: " +e[i].numEjemplar+"*"+datosPres);
                 r=this;
             }else{
                 i++;
@@ -56,10 +58,66 @@ public class Libro {
         return r;
     }
     
+    public Ejemplar buscarEjemplar(int nEjemplar){
+        Ejemplar r=null;
+        int i=0;
+        while(i<e.length && e[i].numEjemplar!=nEjemplar){
+            i++;
+        }
+        if(i<e.length) {
+        r=e[i];
+        }
+        return r;
+    }
     
-    public void eliminarEjemplar(){
-        e[nEjs]=null;
+        public int buscarIndiceEjemplar(int nEjemplar){
+        int i=0;
+        while(i<e.length && e[i].numEjemplar!=nEjemplar){
+            i++;
+        }
+        if(i==e.length) {
+        i=-1;
+        }
+        return i;
+    }
+    
+    
+    public void devolver(int nEjemplar){
+        
+        Ejemplar r=this.buscarEjemplar(nEjemplar);
+        
+        if(r!=null)r.Devolver();
+        
+    }
+    
+    
+    public void eliminarEjemplar(int nEjemplar){
+        int indice=this.buscarIndiceEjemplar(nEjemplar);
+        e[indice]=null;
+        
+        Ejemplar[] dummy = new Ejemplar[e.length-1];
+        int j=0;
+        for(int i=0;i<e.length;i++){
+            if(e[i] !=null){
+                dummy[i]=e[i];
+            j++;
+            }
+        }
+        dummy[e.length]=new Ejemplar(proximoEjemplar);
+        proximoEjemplar++;
+        e=dummy;
  
+    }
+    
+    
+    public void aniadirEjemplar(){
+        Ejemplar[] dummy = new Ejemplar[e.length+1];
+        for(int i=0;i<e.length;i++){
+            dummy[i]=e[i];
+        }
+        dummy[e.length]=new Ejemplar(proximoEjemplar);
+        proximoEjemplar++;
+        e=dummy;
     }
     
     
