@@ -103,8 +103,6 @@ public class Libro {
             j++;
             }
         }
-        dummy[e.length]=new Ejemplar(proximoEjemplar);
-        proximoEjemplar++;
         e=dummy;
  
     }

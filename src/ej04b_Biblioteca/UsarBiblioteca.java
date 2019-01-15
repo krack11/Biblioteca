@@ -32,5 +32,11 @@ public class UsarBiblioteca {
         b1.aniadirEjemplar("678");
         
         System.out.println(b1);
+        
+        Biblioteca b2=new Biblioteca("Biblioteca Trotula de Salerno");
+        b2.aniadirLibro(new Libro("567","Odisea","Homero",4));
+        b2.eliminarEjemplar("567", 3);
+        b2.aniadirEjemplar("567");
+        System.out.println(b2);
     }
 }

@@ -60,6 +60,17 @@ public class Biblioteca {
         return r;
     }
     
+        public int buscarIndiceLibro(String isbn){
+        int i=0;
+        while(i<libros.length && libros[i].isbn!=isbn){
+            i++;
+        }
+        if(i==libros.length) {
+        i=-1;
+        }
+        return i;
+    }
+    
     public void aniadirLibro(Libro nuevoLibro){
         Libro[] dummy;
         if(libros!=null){
@@ -73,6 +84,30 @@ public class Biblioteca {
         dummy[dummy.length-1]=nuevoLibro;
         libros=dummy;
         
+    }
+    
+    public void eliminarLibro(String isbn){
+        int indice=this.buscarIndiceLibro(isbn);
+        libros[indice]=null;
+        
+        Libro[]dummy=new Libro[libros.length+1];
+        int j=0;
+        for(Libro lib : libros){
+            if(lib !=null){
+                dummy[j] = lib;
+                j++;
+            }
+        }
+        libros=dummy;
+    }
+    
+        public void eliminarEjemplar(String isbn, int numEjemplar){
+            Libro r=buscar(isbn);
+            if(r!=null){
+                r.eliminarEjemplar(numEjemplar);
+            }
+        
+ 
     }
     
    
